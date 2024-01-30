@@ -13,6 +13,7 @@ services:
   pwblog-phpmyadmin-dev:
     container_name: pwblog-phpmyadmin-dev
     image: phpmyadmin/phpmyadmin
+    restart: always
     depends_on:
       - pwblog-mysql-dev
     ports:
@@ -24,6 +25,8 @@ services:
   pwblog-wordpress-dev:
     container_name: pwblog-wordpress-dev
     image: wordpress
+    depends_on:
+      - pwblog-mysql-dev
     ports:
       - "127.0.0.3:8080:80"
     environment:
@@ -32,7 +35,7 @@ services:
       WORDPRESS_DB_USER: root
       WORDPRESS_DB_PASSWORD: pass
     volumes:
-      - ./wp:/var/www/html
+      - ./wp-content:/var/www/html/wp-content
 
 volumes:
   pwblog-mysql-dev:
