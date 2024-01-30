@@ -1,0 +1,38 @@
+version: '3.9'
+services:
+  pwblog-mysql-dev:
+    container_name: pwblog-mysql-dev
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: wpblog
+    volumes:
+      - pwblog-mysql-dev:/var/lib/mysql
+
+  pwblog-phpmyadmin-dev:
+    container_name: pwblog-phpmyadmin-dev
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - pwblog-mysql-dev
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: pwblog-mysql-dev
+      MYSQL_ROOT_PASSWORD: pass
+
+  pwblog-wordpress-dev:
+    container_name: pwblog-wordpress-dev
+    image: wordpress
+    ports:
+      - "127.0.0.3:8080:80"
+    environment:
+      WORDPRESS_DB_HOST: mysql-dev
+      WORDPRESS_DB_NAME: wpblog
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: pass
+    volumes:
+      - ./wp:/var/www/html
+
+volumes:
+  pwblog-mysql-dev:
