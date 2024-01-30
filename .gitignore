@@ -1,2 +1,10 @@
 .env
+
 node_modules/
+
+# Composer
+/vendor
+/composer.phar
+/composer.lock
+/composer.json
+/.composer
