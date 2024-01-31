@@ -8,7 +8,7 @@ services:
       MYSQL_ROOT_PASSWORD: pass
       MYSQL_DATABASE: pwblog
     volumes:
-      - pwblog-mysql-dev:/var/lib/mysql
+      - pwblog-mysql-dev-volume:/var/lib/mysql
 
   pwblog-phpmyadmin-dev:
     container_name: pwblog-phpmyadmin-dev
@@ -35,7 +35,8 @@ services:
       WORDPRESS_DB_USER: root
       WORDPRESS_DB_PASSWORD: pass
     volumes:
-      - ./wp-content:/var/www/html/wp-content
+      - pwblog-wordpress-dev-volume:/var/www/html/wp-content
 
 volumes:
-  pwblog-mysql-dev:
+  pwblog-mysql-dev-volume:
+  pwblog-wordpress-dev-volume:
